@@ -20,9 +20,19 @@ var $collectionHolder;
 
 // setup an "add a tag" link
 var $addBookButton = $('<button type="button" class="btn btn-primary add_book_link">Add a book</button>');
+var $saveBookButton = $('<button type="button" class="btn btn-success save_book">Save</button>');
 var $newLinkTr = $('<tr></tr>').append($addBookButton);
 
 $(document).ready(function() {
+
+    $(".edit-line").click(function(e){
+        var obj_id = $(this).data('id');
+
+        e.preventDefault();
+    });
+
+
+
 // FORM EMBED
     // Get the ul that holds the collection of tags
     $collectionHolder = $('table.books');
@@ -37,6 +47,7 @@ $(document).ready(function() {
     $addBookButton.on('click', function(e) {
         // add a new tag form (see next code block)
         addBookForm($collectionHolder, $newLinkTr);
+        $addBookButton.after($saveBookButton);
     });
 
     // add a delete link to all of the existing tag form li elements
@@ -45,12 +56,13 @@ $(document).ready(function() {
     // });
 
     function addBookFormDeleteLink($bookFormTr) {
-        var $removeFormButton = $('<td><button type="button" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button></td>');
+        var $removeFormButton = $('<td><button type="button" class="btn btn-danger delete-new"><i class="fa fa-trash-o" aria-hidden="true"></i></button></td>');
         $bookFormTr.append($removeFormButton);
 
         $removeFormButton.on('click', function(e) {
-            // remove the li for the tag form
             $bookFormTr.remove();
+            if($(".delete-new").length === 0)
+                $saveBookButton.remove();
         });
     }
 

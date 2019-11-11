@@ -6,18 +6,65 @@
     </div>
 {% endblock %}
 
-{% macro book_prototype(book) %}
-        <td>{{ form_widget(book.title) }}</td>
-        <td>{{ form_widget(book.synopsis) }}</td>
-        <td>{{ form_widget(book.short_synopsis) }}</td>
-        <td>{{ form_widget(book.category) }}</td>
-        <td>{{ form_widget(book.size) }}</td>
-        <td>{{ form_widget(book.year) }}</td>
+{% macro book_prototype(book,edit) %}
+    {% if edit == true %}
+
+        <td>
+            <br/>
+            <div class="form-group Input">
+                {{ form_widget(book.title) }}
+                {{ form_label(book.title)}}
+            </div>
+        </td>
+        <td>
+            <br/>
+            <div class="form-group Input">
+                {{ form_label(book.synopsis) }}
+                {{ form_widget(book.synopsis) }}
+            </div>
+        </td>
+        <td>
+            <br/>
+            <div class="form-group Input">
+                {{ form_widget(book.short_synopsis) }}
+                {{ form_label(book.short_synopsis) }}
+            </div>
+        </td>
+        <td>
+            <br/>
+            {{ form_widget(book.category) }}
+        </td>
+        <td>
+            <br/>
+            <div class="form-group Input">
+                {{ form_widget(book.size) }}
+                {{ form_label(book.size) }}
+            </div>
+        </td>
+        <td>
+            <br/>
+            <div class="form-group Input">
+                {{ form_widget(book.year) }}
+                {{ form_label(book.year) }}
+            </div>
+        </td>
+    {% else %}
+        <td>{{ book.title.vars.data }}</td>
+        <td>{{ book.synopsis.vars.data | slice(0,50)~ "..." }}</td>
+        <td>{{ book.short_synopsis.vars.data | slice(0,50)~ "..." }}</td>
+        <td>{{ book.category.vars.data }}</td>
+        <td>{{ book.size.vars.data }}</td>
+        <td>{{ book.year.vars.data }}</td>
+        <td>
+            <a data-id="{{ book.id.vars.data }}" class="btn btn-success edit-line" href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+            <a data-id="{{ book.id.vars.data }}" class="btn btn-danger delete-line" href="#"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+        </td>
+    {% endif %}
 {% endmacro %}
 
 {% block _category_books_row %}
     {#    <h1>{{ form.parent.vars.data.libelle }}</h1>#}
-    <table class="table books" data-prototype="{{ _self.book_prototype(form.vars.prototype)|e('html_attr') }}">
+    <table class="table books" data-prototype="{{ _self.book_prototype(form.vars.prototype,true)|e('html_attr') }}">
         <thead class="thead-dark">
         <th>Title</th>
         <th>Synopsis</th>

@@ -3,8 +3,7 @@
 {% block title %}Category index{% endblock %}
 
 {% block body %}
-    <h1>Category index</h1>
-
+<br/>
     {% for form in forms %}
 {% form_theme form 'category/_form_embed.html.twig'%}
         {{ form_start(form) }}
