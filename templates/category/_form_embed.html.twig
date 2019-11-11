@@ -1,0 +1,42 @@
+{% form_theme form _self %}
+
+{% block _category_libelle_row %}
+    <div>
+        <h1 class="text-center">{{ form.vars.data }}</h1>
+    </div>
+{% endblock %}
+
+{% macro book_prototype(book) %}
+        <td>{{ form_widget(book.title) }}</td>
+        <td>{{ form_widget(book.synopsis) }}</td>
+        <td>{{ form_widget(book.short_synopsis) }}</td>
+        <td>{{ form_widget(book.category) }}</td>
+        <td>{{ form_widget(book.size) }}</td>
+        <td>{{ form_widget(book.year) }}</td>
+{% endmacro %}
+
+{% block _category_books_row %}
+    {#    <h1>{{ form.parent.vars.data.libelle }}</h1>#}
+    <table class="table books" data-prototype="{{ _self.book_prototype(form.vars.prototype)|e('html_attr') }}">
+        <thead class="thead-dark">
+        <th>Title</th>
+        <th>Synopsis</th>
+        <th>Short synopsis</th>
+        <th>Cateogry</th>
+        <th>Size</th>
+        <th>Year</th>
+        <th>Actions</th>
+        </thead>
+        <tbody>
+        {% for book in form %}
+            <tr>
+                {{ _self.book_prototype(book) }}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block _category_books_entry_title_row %}
+
+{% endblock %}

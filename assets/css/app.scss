@@ -1,0 +1,12 @@
+// the ~ allows you to reference things in node_modules
+@import "~bootstrap/scss/bootstrap";
+@import "~font-awesome/scss/font-awesome";
+
+$background:  linear-gradient(#09203f, #537895) no-repeat fixed;
+$gray-darker: gray;
+
+body {
+    //background: $background;
+}
+
+.navbar a{color:$gray-darker}
